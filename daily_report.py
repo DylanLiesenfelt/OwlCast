@@ -1,4 +1,3 @@
-import sys
 import nws_client
 from datetime import datetime
 
@@ -13,21 +12,19 @@ def get_date_info():
     """
     current_date = datetime.today().strftime('%A %B %d %Y')
 
-    return f'Today is {current_date}.\nHeres the forecast for FAU Boca Campus!'
+    return f'Today is {current_date}.\nHeres the forecast for FAU Boca Campus!\n'
 
 def make_day_forecast(data):
     """
-    Print the daytime weather forecast.
+    Returns the daytime weather forecast.
     """
-    print('For the Morning into the Afternoon you can expect:')
-    print(f'{data['detailedForecast']}')
+    return f'\nFor the Morning into the Afternoon you can expect:\n {data['detailedForecast']}'
 
 def make_night_forecast(data):
     """
-    Print the nighttime weather forecast.
+    Returns the nighttime weather forecast.
     """
-    print('\nFor this Evening you can expect:')
-    print(f'{data['detailedForecast']}')
+    return f'\n\nFor this Evening you can expect:\n {data['detailedForecast']}'
 
 def make_report():
     """
@@ -41,10 +38,10 @@ def make_report():
         night_forecast = data[1]
     else:
         print('ERROR: FAILED TO GET NWS DATA')
-        sys.exit()
+        
 
-    print(date_info)
-    make_day_forecast(day_forecast)
-    make_night_forecast(night_forecast)
+    report = f'{date_info} {make_day_forecast(day_forecast)} {make_night_forecast(night_forecast)}'
 
-make_report()
+    return report
+
+print(make_report())
