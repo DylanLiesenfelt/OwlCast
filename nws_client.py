@@ -8,14 +8,15 @@ def get_data():
     url = 'https://api.weather.gov/gridpoints/MFL/111,77/forecast'
     response = requests.get(url)
 
-    if response.status_code == 200:
+    try:
+        response.raise_for_status()
         data = response.json()
         data = data['properties']['periods']
 
         return data
 
-    else:
-        print('Could not reach NWS servers')
+    except requests.exceptions.RequestException as e:
+        print(f'Error fetching NWS data: {e}')
 
         return None
 
