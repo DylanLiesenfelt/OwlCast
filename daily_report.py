@@ -43,5 +43,3 @@ def make_report():
     report = f'{date_info} {make_day_forecast(day_forecast)} {make_night_forecast(night_forecast)}'
 
     return report
-
-print(make_report())
