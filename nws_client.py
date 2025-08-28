@@ -1,5 +1,4 @@
 import requests
-from datetime import date
 
 def get_data():
     """
