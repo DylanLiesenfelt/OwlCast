@@ -48,6 +48,7 @@ async def on_ready():
     print("Daily report scheduler started.")
     scheduler.start()
 
+    print('Background weather check scheduler started.')
     bg_sched = BackgroundScheduler()
     bg_sched.add_job(check_weather, 'interval', minutes=10)
 
@@ -68,6 +69,7 @@ async def send_daily_report():
 Check the weather every 10 minutes and send a notification if rain is expected
 """
 async def check_weather(): 
+    print('Weather check running...')
     try:
         channel = await bot.fetch_channel(CHANNEL_ID)
         if channel:
