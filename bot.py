@@ -43,14 +43,10 @@ async def on_ready():
     print(f"Logged in as {bot.user}")
     # Daily Report
     scheduler = AsyncIOScheduler()
-    trigger = CronTrigger(hour=6, minute=30)
-    scheduler.add_job(send_daily_report, trigger)
-    print("Daily report scheduler started.")
+    scheduler.add_job(send_daily_report, CronTrigger(hour=6, minute=30))
+    scheduler.add_job(check_weather, 'interval', minutes=10)
+    print("Schedulers set up.")
     scheduler.start()
-
-    print('Background weather check scheduler started.')
-    bg_sched = BackgroundScheduler()
-    bg_sched.add_job(check_weather, 'interval', minutes=10)
 
 """
 Send the daily weather report at 6:30 AM every day
@@ -79,6 +75,8 @@ async def check_weather():
                 notification = f'WEATHER: {weather}'
                 await channel.send(notification)
                 print("Rain Notification Sent!")
+            else:
+                print('No rain expected.')
     except Exception as e:
         print(f"Failed to send report: {e}")
 
