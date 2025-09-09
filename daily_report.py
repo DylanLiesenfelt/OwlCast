@@ -39,7 +39,6 @@ def make_report():
     else:
         print('ERROR: FAILED TO GET NWS DATA')
         
-
     report = f'{date_info} {make_day_forecast(day_forecast)} {make_night_forecast(night_forecast)}'
 
     return report
