@@ -82,7 +82,7 @@ async def check_weather():
             if weather_code != last_weather:
                 if weather_code in weather_codes:
                     last_weather = weather_code
-                    notification = f'Incoming Weather: {weather_code}'
+                    notification = f'Incoming Weather: {weather_codes[weather_code]}'
                     await channel.send(notification)
                     print("Weather Notification Sent!")
 
