@@ -5,24 +5,28 @@ from dotenv import load_dotenv
 load_dotenv()
 KEY = os.getenv('TOMORROW_API_KEY')
 
-lat = 26.3730
-lon = -80.0986
-url = f"https://api.tomorrow.io/v4/weather/realtime?location={lat},{lon}&units=imperial&apikey={KEY}"
-
-
+url = "https://api.tomorrow.io/v4/weather/forecast?location=26.3730,-80.0986&units=imperial"
 
 headers = {
     "accept": "application/json",
-    "accept-encoding": "deflate, gzip, br"
+    "accept-encoding": "deflate, gzip, br",
+    "apikey": KEY
 }
 
 def get_current_weather():
     try:
         response = requests.get(url, headers=headers)
-        data = response.json()
-        status = data['data']['values']['weatherCode']
+        print(response.status_code)
         
-        return status
-    except Exception as e:
-        print(f'ERROR: {e}')
+        response.raise_for_status()
+        data = response.json()
 
+        weather_code = data["timelines"]["minutely"][4]["values"]["weatherCode"]
+
+        return weather_code
+    
+    except Exception as e:
+        print(f'TOMORROW.IO ERROR: {e}')
+        return None
+
+print(get_current_weather())
