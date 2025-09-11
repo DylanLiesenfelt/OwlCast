@@ -29,4 +29,3 @@ def get_current_weather():
         print(f'TOMORROW.IO ERROR: {e}')
         return None
 
-print(get_current_weather())
